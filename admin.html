@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h3>قائمة الطلبات</h3>
+  <a class="btn btn-outline-secondary" href="{{ url_for('logout') }}">خروج</a>
+</div>
+<div class="card">
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-striped align-middle">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>الاسم</th>
+            <th>اللقب</th>
+            <th>تاريخ الازدياد</th>
+            <th>الهاتف</th>
+            <th>العنوان</th>
+            <th>الشهادة</th>
+            <th>المؤهل</th>
+            <th>الملف</th>
+            <th>تاريخ الإدراج</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for row in applications %}
+          <tr>
+            <td>{{ row.id }}</td>
+            <td>{{ row.first_name }}</td>
+            <td>{{ row.last_name }}</td>
+            <td>{{ row.birth_date }}</td>
+            <td>{{ row.phone }}</td>
+            <td>{{ row.address }}</td>
+            <td>{{ row.diploma }}</td>
+            <td>{{ row.qualification }}</td>
+            <td>
+              {% if row.file_name %}
+                <a class="btn btn-sm btn-outline-primary" href="{{ url_for('serve_file', filename=row.file_name) }}" target="_blank">عرض</a>
+              {% else %}
+                لا يوجد
+              {% endif %}
+            </td>
+            <td>{{ row.created_at }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}
